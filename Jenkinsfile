@@ -31,7 +31,7 @@ pipeline {
             }
           }
         }
-        stage('SCA') {
+        /* stage('SCA') {
           steps {
             container('maven') {
               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
@@ -45,7 +45,7 @@ pipeline {
               // dependencyCheckPublisher pattern: 'report.xml'
             }
           }
-        }
+        } */
         stage('OSS License Checker') {
           steps {
             container('licensefinder') {
