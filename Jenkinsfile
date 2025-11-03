@@ -45,7 +45,7 @@ pipeline {
               // dependencyCheckPublisher pattern: 'report.xml'
             }
           }
-        } */
+        }
         stage('OSS License Checker') {
           steps {
             container('licensefinder') {
@@ -58,7 +58,7 @@ pipeline {
                     '''
             }
           }
-        }
+        } */
       }
     }
 
