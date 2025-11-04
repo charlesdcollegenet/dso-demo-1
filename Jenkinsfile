@@ -31,7 +31,7 @@ pipeline {
             }
           }
         }
-        /*
+        
         stage('SCA') {
           steps {
             container('maven') {
@@ -59,7 +59,7 @@ pipeline {
                     '''
             }
           }
-        } */
+        }
       }
     }
 
