@@ -7,8 +7,7 @@ pipeline {
     }
   }
   environment {
-    OSSINDEX_USERNAME = credentials('ossindex').usr
-    OSSINDEX_PASSWORD = credentials('ossindex').psw
+    OSSINDEX_CREDS = credentials('ossindex')
   } 
   stages {
     stage('Build') {
@@ -39,6 +38,8 @@ pipeline {
           steps {
             container('maven') {
               catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                export OSSINDEX_USERNAME="$OSSINDEX_CREDS_USR"
+                export OSSINDEX_PASSWORD="$OSSINDEX_CREDS_PSW"
                 sh 'mvn org.owasp:dependency-check-maven:check'
               }
             }
