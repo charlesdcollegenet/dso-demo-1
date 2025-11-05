@@ -25,6 +25,9 @@ spec:
       volumeMounts:
         - name: m2
           mountPath: /root/.m2/
+        - name: maven-settings
+          mountPath: /root/.m2/settings.xml
+          subPath: settings.xml
     - name: docker-tools
       image: docker.io/rmkanda/docker-tools:latest
       command:
@@ -62,6 +65,9 @@ spec:
     - name: m2
       hostPath:
         path: /tmp/.m2/
+    - name: maven-settings
+      configMap:
+        name: maven-settings
     - name: docker-sock
       hostPath:
         path: /var/run
