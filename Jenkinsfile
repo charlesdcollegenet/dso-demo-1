@@ -5,8 +5,11 @@ pipeline {
       defaultContainer 'maven'
       idleMinutes 1
     }
-
   }
+  environment {
+    OSSINDEX_USERNAME = credentials('ossindex').usr
+    OSSINDEX_PASSWORD = credentials('ossindex').psw
+  } 
   stages {
     stage('Build') {
       parallel {
