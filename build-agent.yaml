@@ -10,6 +10,18 @@ spec:
       command:
         - cat
       tty: true
+      env:
+        # Inject OSS creds
+        - name: OSSINDEX_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ossindex-credentials
+              key: username
+        - name: OSSINDEX_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ossindex-credentials
+              key: password
       volumeMounts:
         - name: m2
           mountPath: /root/.m2/
