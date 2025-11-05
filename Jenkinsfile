@@ -93,27 +93,27 @@ pipeline {
             container(name: 'kaniko') {
               sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --insecure --skip-tls-verify --cache=true --destination=docker.io/charlesdcollegenet/dso-demo-1'
             }
-
+           }
           }
         }
-
-        stage('Image Analysis') {
-          parallel {
-            stage('Image Linting') {
-              steps {
-                container('docker-tools') {
-                  sh 'dockle docker.io/charlesdcollegenet/dso-demo-1'
-                }
-              }
-            }
-            stage('Image Scan') {
-              steps {
-                container('docker-tools') {
-                  sh 'trivy image --timeout 10m --exit-code 1 charlesdcollegenet/dso-demo-1'
-                }
+      }
+      stage('Image Analysis') {
+        parallel {
+          stage('Image Linting') {
+            steps {
+              container('docker-tools') {
+                sh 'dockle docker.io/charlesdcollegenet/dso-demo-1'
               }
             }
           }
+          stage('Image Scan') {
+            steps {
+              container('docker-tools') {
+                sh 'trivy image --timeout 10m --exit-code 1 charlesdcollegenet/dso-demo-1'
+              }
+            }
+           }
+         }
         }
 
         stage('Deploy to Dev') {
